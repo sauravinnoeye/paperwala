@@ -1,5 +1,9 @@
 package com.paperwala.serviceImpl;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +23,7 @@ public class UserCredentialsServiceImpl implements UserCredentialsService {
 		if (validateUser(request)) {
 			UserCredentials uc = new UserCredentials();
 			uc.setUserName(request.getUserName());
+			//uc.setUserPassword(getMd5(request.getUserPassword()));
 			uc.setUserPassword(request.getUserPassword());
 			uc.setUserRole(request.getUserRole());
 			userDao.save(uc);
@@ -35,5 +40,22 @@ public class UserCredentialsServiceImpl implements UserCredentialsService {
 			return false;
 		}
 	}
+	
+	private String getMd5(String input)
+    {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(input.getBytes());
+            BigInteger no = new BigInteger(1, messageDigest);
+            String hashtext = no.toString(16);
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+            return hashtext;
+        } 
+        catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
