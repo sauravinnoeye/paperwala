@@ -37,5 +37,13 @@ public class UserCredentials implements Serializable {
 	@Basic
 	@Column(name = "userrole")
 	private String userRole;
+	
+	@Basic
+	@Column(name = "contact")
+	private String contact;
+	
+	@Basic
+	@Column(name="address")
+	private String address;
 
 }

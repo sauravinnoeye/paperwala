@@ -1,5 +1,8 @@
 package com.paperwala.wrapper;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -7,15 +10,10 @@ import lombok.Data;
 
 @Data
 @JsonInclude(Include.NON_EMPTY)
-public class UserCredentialsWrapper {
+public class NewspaperWrapper {
 
-	private String userName;
-	
-	private String userPassword;
-	
-	private String userRole;
-	
-	private String contact;
-	
-	private String address;
+	private String newspaperName;
+
+	private String newspaperRate;
+
 }

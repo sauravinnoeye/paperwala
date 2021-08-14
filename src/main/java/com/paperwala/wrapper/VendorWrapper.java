@@ -7,15 +7,22 @@ import lombok.Data;
 
 @Data
 @JsonInclude(Include.NON_EMPTY)
-public class UserCredentialsWrapper {
+public class VendorWrapper {
+
+	private String vendorName;
+
+	private String type;
+
+	private String agency;
+
+	private String contact;
+
+	private String uniqueId;
+
+	private String vendorAddress;
 
 	private String userName;
-	
-	private String userPassword;
-	
-	private String userRole;
-	
-	private String contact;
-	
-	private String address;
+
+	private String password;
+
 }
