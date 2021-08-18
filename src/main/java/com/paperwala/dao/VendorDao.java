@@ -8,6 +8,6 @@ import com.paperwala.POJO.Vendor;
 
 public interface VendorDao  extends JpaRepository<Vendor, Integer>  {
 
-	List<Vendor> findAll();
+	//List<Vendor> findAll();
 	
 }

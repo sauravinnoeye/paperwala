@@ -17,7 +17,6 @@ class ApplicationTests {
 
 	private Logger logger = LogManager.getLogger(ApplicationTests.class);
 
-	
 	@Autowired
 	public UserCredentialsDao user;
 	
@@ -64,7 +63,7 @@ class ApplicationTests {
 		
 		
 		//logger.info("-------------------------------------srv-------------------------------{}",nDao.getNewspaper());
-		logger.info("-------------------------------------srv-------------------------------{}",vDao.findAll());
+		logger.info("-------------------------------------srv-------------------------------{}",vendorService.getAllVendor());
 		
 	}
 

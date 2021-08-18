@@ -1,5 +1,7 @@
 package com.paperwala.serviceImpl;
 
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,8 +67,12 @@ public class VendorServiceImpl implements VendorService {
 	}
 
 	@Override
-	public ResponseEntity<String> getVendorDetails() {
-		
+	public List<Vendor> getAllVendor() {
+		try {
+			return vendorDao.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
