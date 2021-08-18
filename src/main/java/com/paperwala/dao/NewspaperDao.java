@@ -13,5 +13,5 @@ public interface NewspaperDao  extends JpaRepository<Newspaper, Integer> {
 
 	//List<String> (@Param("username")String username,@Param("password")String password);
 	
-	List<NewspaperWrapper> getNewspaper();
+	//List<NewspaperWrapper> getNewspaper();
 }

@@ -7,8 +7,5 @@ import com.paperwala.wrapper.NewspaperWrapper;
 public interface NewspaperService {
 
 	ResponseEntity<String> addNewsPaper(NewspaperWrapper request);
-	
-	
-	
-	
+
 }

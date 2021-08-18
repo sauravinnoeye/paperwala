@@ -8,8 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.paperwala.dao.NewspaperDao;
 import com.paperwala.dao.UserCredentialsDao;
+import com.paperwala.dao.VendorDao;
 import com.paperwala.restImpl.VendorRestImpl;
-import com.paperwala.service.NewspaperService;
 import com.paperwala.service.UserCredentialsService;
 
 @SpringBootTest
@@ -27,8 +27,11 @@ class ApplicationTests {
 	@Autowired
 	private VendorRestImpl vendorService;
 	
+//	@Autowired
+//	private NewspaperService nservice;
+	
 	@Autowired
-	private NewspaperService nservice;
+	VendorDao vDao;
 	
 	@Autowired
 	private NewspaperDao nDao;
@@ -60,7 +63,8 @@ class ApplicationTests {
 		
 		
 		
-		logger.info("-------------------------------------srv-------------------------------{}",nDao.getNewspaper());
+		//logger.info("-------------------------------------srv-------------------------------{}",nDao.getNewspaper());
+		logger.info("-------------------------------------srv-------------------------------{}",vDao.findAll());
 		
 	}
 
