@@ -25,4 +25,12 @@ public class VendorWrapper {
 
 	private String password;
 
+	public VendorWrapper() {
+	}
+
+	public VendorWrapper(String vendorName, String type) {
+		this.vendorName = vendorName;
+		this.type = type;
+	}
+
 }

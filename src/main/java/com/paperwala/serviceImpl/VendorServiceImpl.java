@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.google.common.base.Strings;
 import com.paperwala.POJO.Vendor;
 import com.paperwala.dao.VendorDao;
 import com.paperwala.service.VendorService;
@@ -17,13 +18,12 @@ public class VendorServiceImpl implements VendorService {
 
 	private Logger logger = LogManager.getLogger(VendorServiceImpl.class);
 
-	
 	@Autowired
 	private VendorDao vendorDao;
 
 	@Override
 	public ResponseEntity<String> addVendor(VendorWrapper vendor) {
-		logger.info("-----------vendor serviceImpl-----------------------srv-----------------------------{}",vendor);
+		logger.info("-----------vendor serviceImpl-----------------------srv-----------------------------{}", vendor);
 		try {
 			if (validateVendor(vendor)) {
 				Vendor vendorObj = new Vendor();
@@ -36,9 +36,11 @@ public class VendorServiceImpl implements VendorService {
 				vendorObj.setUserName(vendor.getUserName());
 				vendorObj.setPassword(vendor.getPassword());
 				vendorDao.save(vendorObj);
-				//return "Vendor Added Successfully";
-				return new ResponseEntity<>("{\"message\":\"" + "Vendor Added Successfully" + "\"}", HttpStatus.CREATED);
-
+				// return "Vendor Added Successfully";
+				return new ResponseEntity<>("{\"message\":\"" + "Vendor Added Successfully" + "\"}",
+						HttpStatus.CREATED);
+			} else {
+				return new ResponseEntity<>("{\"message\":\"" + "Not sufficient data." + "\"}", HttpStatus.BAD_REQUEST);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -48,18 +50,24 @@ public class VendorServiceImpl implements VendorService {
 
 	private boolean validateVendor(VendorWrapper vendor) {
 		try {
-			if (vendor.getVendorName().isEmpty() || vendor.getType().isEmpty() || vendor.getAgency().isEmpty()
-					|| vendor.getContact().isEmpty() || vendor.getUniqueId().isEmpty()
-					|| vendor.getVendorAddress().isEmpty() || vendor.getUserName().isEmpty()
-					|| vendor.getPassword().isEmpty()) {
-				return false;
-			} else {
+			if (!Strings.isNullOrEmpty(vendor.getVendorName()) && !Strings.isNullOrEmpty(vendor.getType())
+					&& !Strings.isNullOrEmpty(vendor.getAgency()) && !Strings.isNullOrEmpty(vendor.getContact())
+					&& !Strings.isNullOrEmpty(vendor.getUniqueId()) && !Strings.isNullOrEmpty(vendor.getVendorAddress())
+					&& !Strings.isNullOrEmpty(vendor.getUserName()) && !Strings.isNullOrEmpty(vendor.getPassword())) {
 				return true;
+			} else {
+				return false;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	@Override
+	public ResponseEntity<String> getVendorDetails() {
+		
+		return null;
 	}
 
 }

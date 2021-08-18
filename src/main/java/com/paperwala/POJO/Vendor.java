@@ -7,9 +7,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import lombok.Data;
+
+
+
+//@NamedQuery(name = "UserCredentials.getUser", query = "select u.userName,u.userPassword,u.userRole from UserCredentials u where u.userName=:username and u.userPassword=:password")
 
 @Data
 @Entity
