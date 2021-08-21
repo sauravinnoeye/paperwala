@@ -73,7 +73,7 @@ public class NewspaperServiceImpl implements NewspaperService {
 	}
 
 	@Override
-	public List<Newspaper> getNewspaperByVendor(Integer id) {
+	public List<NewspaperWrapper> getNewspaperByVendor(Integer id) {
 		logger.info("Inside getNewspaperByVendor{}", id);
 		try {
 			if (id != null) {

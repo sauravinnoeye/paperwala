@@ -20,7 +20,7 @@ import lombok.Data;
 
 //@NamedQuery(name = "Newspaper.getNewspaperByVendor", query = "select n from newspaper n where n.vendor.id=:id")
 
-@NamedQuery(name = "Newspaper.getNewspaperByVendor", query = "select n from Newspaper n where n.vendor.id=:id")
+@NamedQuery(name = "Newspaper.getNewspaperByVendor", query = "select new com.paperwala.wrapper.NewspaperWrapper(n.newspaperName,n.newspaperRate,n.vendor.id) from Newspaper n where n.vendor.id=:id")
 
 @Data
 @Entity

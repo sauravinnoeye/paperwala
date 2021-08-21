@@ -77,16 +77,19 @@ class ApplicationTests {
 //		logger.info("-------------------------------------srv-------------------------------{}",
 //				vendorService.deleteVendor(3));
 
-		UserCredentialsWrapper user = new UserCredentialsWrapper();
-		user.setUserName("shivani");
-		user.setUserPassword("shivani");
-		user.setUserRole("Vendor");
-		logger.info("--------------------------------srv------------------------{}", service.login(user));
+//		UserCredentialsWrapper user = new UserCredentialsWrapper();
+//		user.setUserName("shivani");
+//		user.setUserPassword("shivani");
+//		user.setUserRole("Vendor");
+//		logger.info("--------------------------------srv------------------------{}", service.login(user));
 
 		// logger.info("--------------------------------srv------------------------{}",
 		// vDao.getVendor("shivani","shivani"));
 
 		// logger.info("---------------srv-----------------------{}",nDao.getNewspaperByVendor(1));
+		
+		logger.info("-------------------srv------------------{}",nservice.getNewspaperByVendor(1));
+		
 	}
 
 }

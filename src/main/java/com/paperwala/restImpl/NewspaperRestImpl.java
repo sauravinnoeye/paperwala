@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.paperwala.POJO.Newspaper;
 import com.paperwala.service.NewspaperService;
 import com.paperwala.wrapper.NewspaperWrapper;
 
@@ -36,7 +35,7 @@ public class NewspaperRestImpl {
 	}
 
 	@GetMapping("/getNewspaperByVendor/{id}")
-	public List<Newspaper> getNewspaperByVendor(@PathVariable(required = true, name = "id") Integer id) {
+	public List<NewspaperWrapper> getNewspaperByVendor(@PathVariable(required = true, name = "id") Integer id) {
 		try {
 			return service.getNewspaperByVendor(id);
 		} catch (Exception e) {

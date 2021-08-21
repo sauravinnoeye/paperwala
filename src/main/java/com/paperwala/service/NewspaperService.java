@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import com.paperwala.POJO.Newspaper;
 import com.paperwala.wrapper.NewspaperWrapper;
 
 public interface NewspaperService {
@@ -15,6 +14,6 @@ public interface NewspaperService {
 	
 	ResponseEntity<String> deleteNewspaper(Integer id);
 	
-	List<Newspaper> getNewspaperByVendor(Integer id);
+	List<NewspaperWrapper> getNewspaperByVendor(Integer id);
 
 }

@@ -2,7 +2,6 @@ package com.paperwala.wrapper;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.paperwala.POJO.Vendor;
 
 import lombok.Data;
 
@@ -11,9 +10,15 @@ import lombok.Data;
 public class NewspaperWrapper {
 
 	private String newspaperName;
-	
-	private int vendor;
+
+	private Integer vendor;
 
 	private String newspaperRate;
+
+	public NewspaperWrapper(String newspaperName, String newspaperRate, Integer vendor) {
+		this.newspaperName = newspaperName;
+		this.newspaperRate = newspaperRate;
+		this.vendor = vendor;
+	}
 
 }
