@@ -37,7 +37,8 @@ public class UserCredentialsServiceImpl implements UserCredentialsService {
 						return userSignUp(request);
 					}
 				} else {
-					return new ResponseEntity<>("{\"message\":\"" + "Username already Exists" + "\"}", HttpStatus.OK);
+					return new ResponseEntity<>("{\"message\":\"" + "Username already Exists" + "\"}",
+							HttpStatus.BAD_REQUEST);
 				}
 			} else {
 				return new ResponseEntity<>("{\"message\":\"" + "Not sufficient data to create account" + "\"}",
