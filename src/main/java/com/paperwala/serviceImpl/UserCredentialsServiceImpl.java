@@ -150,17 +150,17 @@ public class UserCredentialsServiceImpl implements UserCredentialsService {
 				Map<String, String> map = new HashMap<>();
 				UserCredentials user = userDao.getUser(username, password);
 				logger.info("----------------------------srv----------------------------{}}", user);
-				if (!Strings.isNullOrEmpty(user.getUserName()) && !Strings.isNullOrEmpty(user.getUserPassword())) {
-					map.put("id", Integer.toString(user.getId()));
-					map.put("userName", user.getUserName());
-					map.put("role", user.getUserRole());
-					return map;
+				if (user != null) {
+					if (!Strings.isNullOrEmpty(user.getUserName()) && !Strings.isNullOrEmpty(user.getUserPassword())
+							&& !Strings.isNullOrEmpty(user.getUserRole())) {
+						map.put("id", Integer.toString(user.getId()));
+						map.put("userName", user.getUserName());
+						map.put("role", user.getUserRole());
+						return map;
+					}
 				}
-
 			}
-		} catch (
-
-		Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return new HashMap<>();
