@@ -25,7 +25,7 @@ public class VendorServiceImpl implements VendorService {
 
 	@Override
 	public ResponseEntity<String> addVendor(VendorWrapper vendor) {
-		logger.info("-----------vendor serviceImpl-----------------------srv-----------------------------{}", vendor);
+		logger.info("Inside addVendor service Impl {}", vendor);
 		try {
 			if (validateVendor(vendor)) {
 				Vendor vendorObj = new Vendor();
@@ -38,7 +38,6 @@ public class VendorServiceImpl implements VendorService {
 				vendorObj.setUserName(vendor.getUserName());
 				vendorObj.setPassword(vendor.getPassword());
 				vendorDao.save(vendorObj);
-				// return "Vendor Added Successfully";
 				return new ResponseEntity<>("{\"message\":\"" + "Vendor Added Successfully" + "\"}",
 						HttpStatus.CREATED);
 			} else {
@@ -51,6 +50,7 @@ public class VendorServiceImpl implements VendorService {
 	}
 
 	private boolean validateVendor(VendorWrapper vendor) {
+		logger.info("Inside validateVendor {}", vendor);
 		try {
 			if (!Strings.isNullOrEmpty(vendor.getVendorName()) && !Strings.isNullOrEmpty(vendor.getType())
 					&& !Strings.isNullOrEmpty(vendor.getAgency()) && !Strings.isNullOrEmpty(vendor.getContact())
@@ -74,6 +74,42 @@ public class VendorServiceImpl implements VendorService {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	public ResponseEntity<String> updateVendor(Integer id, VendorWrapper vendor) {
+		logger.info("Inside updateVendor {}", vendor);
+		try {
+			if (validateVendor(vendor)) {
+				Vendor vendorObj = vendorDao.getById(id);
+				vendorObj.setVendorName(vendor.getVendorName());
+				vendorObj.setType(vendor.getType());
+				vendorObj.setAgency(vendor.getAgency());
+				vendorObj.setContact(vendor.getContact());
+				vendorObj.setUniqueId(vendor.getUniqueId());
+				vendorObj.setVendorAddress(vendor.getVendorAddress());
+				vendorObj.setUserName(vendor.getUserName());
+				vendorObj.setPassword(vendor.getPassword());
+				vendorDao.save(vendorObj);
+				return new ResponseEntity<>("{\"message\":\"" + "Vendor Updated Successfully" + "\"}", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>("{\"message\":\"" + "Something Went Wrong." + "\"}", HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public ResponseEntity<String> deleteVendor(Integer id) {
+		try {
+			vendorDao.deleteById(id);
+			return new ResponseEntity<>("{\"message\":\"" + "Vendor Deleated" + "\"}", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("{\"message\":\"" + "Something Went Wrong." + "\"}", HttpStatus.OK);
+		}
 	}
 
 }

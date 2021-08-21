@@ -10,7 +10,11 @@ import com.paperwala.wrapper.VendorWrapper;
 public interface VendorService {
 
 	ResponseEntity<String> addVendor(VendorWrapper vendor);
-	
+
 	List<Vendor> getAllVendor();
+
+	ResponseEntity<String> updateVendor(Integer id, VendorWrapper vendor);
 	
+	ResponseEntity<String> deleteVendor(Integer id);
+
 }

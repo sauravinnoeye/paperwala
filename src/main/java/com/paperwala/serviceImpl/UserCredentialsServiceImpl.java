@@ -31,14 +31,18 @@ public class UserCredentialsServiceImpl implements UserCredentialsService {
 		try {
 			if (!Strings.isNullOrEmpty(request.getUserName()) && !Strings.isNullOrEmpty(request.getUserPassword())
 					&& !Strings.isNullOrEmpty(request.getUserRole())) {
-				UserCredentials uc = new UserCredentials();
-				uc.setUserName(request.getUserName());
-				// uc.setUserPassword(getMd5(request.getUserPassword()));
-				uc.setUserPassword(request.getUserPassword());
-				uc.setUserRole(request.getUserRole());
-				userDao.save(uc);
-				// return "Sign Up Successfull";
-				return new ResponseEntity<>("{\"message\":\"" + "Sign Up Successfull" + "\"}", HttpStatus.CREATED);
+				if (validateUsername(request.getUserName())) {
+					UserCredentials uc = new UserCredentials();
+					uc.setUserName(request.getUserName());
+					// uc.setUserPassword(getMd5(request.getUserPassword()));
+					uc.setUserPassword(request.getUserPassword());
+					uc.setUserRole(request.getUserRole());
+					userDao.save(uc);
+					// return "Sign Up Successfull";
+					return new ResponseEntity<>("{\"message\":\"" + "Sign Up Successfull" + "\"}", HttpStatus.CREATED);
+				} else {
+					return new ResponseEntity<>("{\"message\":\"" + "Username already Exists" + "\"}", HttpStatus.OK);
+				}
 			} else {
 				// return "Not sufficient data to create account";
 				return new ResponseEntity<>("{\"message\":\"" + "Not sufficient data to create account" + "\"}",
@@ -55,6 +59,15 @@ public class UserCredentialsServiceImpl implements UserCredentialsService {
 		// String name = user.getUserName().toString();
 		if (!Strings.isNullOrEmpty(user.getUserName()) && !Strings.isNullOrEmpty(user.getUserPassword())
 				&& !user.getUserRole().isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private boolean validateUsername(String username) {
+		List<String> list = userDao.validUser(username);
+		if (list.isEmpty()) {
 			return true;
 		} else {
 			return false;

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.paperwala.POJO.Vendor;
@@ -47,4 +48,25 @@ public class VendorRestImpl {
 		return null;
 	}
 
+
+	@PostMapping("/updateVendor")
+	public ResponseEntity<String> updateVendor(@RequestParam(required = false, name = "id") Integer id,
+			@RequestBody(required = true) VendorWrapper wrap) {
+		try {
+			return vservice.updateVendor(id, wrap);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@GetMapping("/deleteVendor")
+	public ResponseEntity<String> deleteVendor(@RequestParam(required = true, name = "id") Integer id) {
+		try {
+			return vservice.deleteVendor(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
