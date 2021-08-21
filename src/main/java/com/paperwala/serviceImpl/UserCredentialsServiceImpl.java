@@ -112,27 +112,55 @@ public class UserCredentialsServiceImpl implements UserCredentialsService {
 //		return false;
 //	}
 
+//	@Override
+//	public Map<String, String> login(UserCredentialsWrapper userWrapper) {
+//		try {
+//			logger.info("Inside login {}", userWrapper);
+//			String username = userWrapper.getUserName();
+//			String password = userWrapper.getUserPassword();
+//			if (username != "" && password != "") {
+//				Map<String, String> map = new HashMap<>();
+//				List<String> list = userDao.getUser(username, password);
+//				logger.info("----------------------------srv----------------------------{}}", list);
+//				if (list.size() != 0) {
+//					String test = list.get(0);
+//					String[] abc = test.split(",");
+//					logger.info("----------------------------srv array----------------------------{}}", abc);
+//					if (abc.length != 0 && (abc[0].equalsIgnoreCase(username) && abc[1].equals(password))) {
+//						//map.put("id", list.get(3));
+//						map.put("userName", list.get(0));
+//						map.put("role", list.get(1));
+//						return map;
+//					}
+//				}
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return new HashMap<>();
+//	}
+
 	@Override
 	public Map<String, String> login(UserCredentialsWrapper userWrapper) {
 		try {
+			logger.info("Inside login {}", userWrapper);
 			String username = userWrapper.getUserName();
 			String password = userWrapper.getUserPassword();
 			if (username != "" && password != "") {
 				Map<String, String> map = new HashMap<>();
-				List<String> list = userDao.getUser(username, password);
-				logger.info("----------------------------srv----------------------------{}}", list);
-				if (list.size() != 0) {
-					String test = list.get(0);
-					String[] abc = test.split(",");
-					if (abc.length != 0 && (abc[1].equalsIgnoreCase(username) && abc[2].equals(password))) {
-						map.put("id", list.get(0));
-						map.put("userName", list.get(1));
-						map.put("role", list.get(3));
-						return map;
-					}
+				UserCredentials user = userDao.getUser(username, password);
+				logger.info("----------------------------srv----------------------------{}}", user);
+				if (!Strings.isNullOrEmpty(user.getUserName()) && !Strings.isNullOrEmpty(user.getUserPassword())) {
+					map.put("id", Integer.toString(user.getId()));
+					map.put("userName", user.getUserName());
+					map.put("role", user.getUserRole());
+					return map;
 				}
+
 			}
-		} catch (Exception e) {
+		} catch (
+
+		Exception e) {
 			e.printStackTrace();
 		}
 		return new HashMap<>();

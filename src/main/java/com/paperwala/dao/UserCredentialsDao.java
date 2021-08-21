@@ -9,7 +9,7 @@ import com.paperwala.POJO.UserCredentials;
 
 public interface UserCredentialsDao extends JpaRepository<UserCredentials, Integer> {
 
-	List<String> getUser(@Param("username") String username, @Param("password") String password);
+	UserCredentials getUser(@Param("username") String username, @Param("password") String password);
 
 	List<String> validUser(@Param("username") String username);
 

@@ -12,6 +12,7 @@ import com.paperwala.dao.VendorDao;
 import com.paperwala.restImpl.VendorRestImpl;
 import com.paperwala.service.UserCredentialsService;
 import com.paperwala.service.VendorService;
+import com.paperwala.wrapper.UserCredentialsWrapper;
 import com.paperwala.wrapper.VendorWrapper;
 
 @SpringBootTest
@@ -76,6 +77,10 @@ class ApplicationTests {
 //		logger.info("-------------------------------------srv-------------------------------{}",
 //				vendorService.deleteVendor(3));
 
+		UserCredentialsWrapper user = new UserCredentialsWrapper();
+		user.setUserName("saurav");
+		user.setUserPassword("saurav");
+		logger.info("--------------------------------srv------------------------{}", service.login(user));
 	}
 
 }

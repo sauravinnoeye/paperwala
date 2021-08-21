@@ -13,10 +13,9 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
-@NamedQuery(name = "UserCredentials.getUser", query = "select u.id,u.userName,u.userPassword,u.userRole from UserCredentials u where u.userName=:username and u.userPassword=:password")
+@NamedQuery(name = "UserCredentials.getUser", query = "select u from UserCredentials u where u.userName=:username and u.userPassword=:password")
 
 @NamedQuery(name = "UserCredentials.validUser", query = "select u.userName,u.userPassword,u.userRole from UserCredentials u where u.userName=:username")
-
 
 @Data
 @Entity
@@ -27,7 +26,7 @@ public class UserCredentials implements Serializable {
 	@Id
 	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
 	@Column(name = "usercredentials_pk")
-	private int id;
+	private Integer id;
 
 	@Basic
 	@Column(name = "username")
@@ -40,13 +39,13 @@ public class UserCredentials implements Serializable {
 	@Basic
 	@Column(name = "userrole")
 	private String userRole;
-	
+
 	@Basic
 	@Column(name = "contact")
 	private String contact;
-	
+
 	@Basic
-	@Column(name="address")
+	@Column(name = "address")
 	private String address;
 
 }
