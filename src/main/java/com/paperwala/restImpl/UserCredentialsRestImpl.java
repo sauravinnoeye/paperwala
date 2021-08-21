@@ -29,5 +29,16 @@ public class UserCredentialsRestImpl {
 		}
 		return null;
 	}
+	
+	@PostMapping("/userSignUp")
+	public ResponseEntity<String> userSignUp(@RequestBody(required = true) UserCredentialsWrapper request) {
+		// uservice.saveProduct(request);
+		try {
+			return uservice.userSignUp(request);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 }

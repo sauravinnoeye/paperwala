@@ -110,19 +110,23 @@ public class UserCredentialsServiceImpl implements UserCredentialsService {
 	}
 
 	@Override
-	public String userSignUp(UserCredentialsWrapper request) {
-		if (validateUser(request) && request.getUserRole().equalsIgnoreCase("user")) {
-			UserCredentials uc = new UserCredentials();
-			uc.setUserName(request.getUserName());
-			uc.setUserPassword(request.getUserPassword());
-			uc.setUserRole(request.getUserRole());
-			uc.setContact(request.getContact());
-			uc.setAddress(request.getAddress());
-			userDao.save(uc);
-			return "User Sign Up Successfull";
-		} else {
-			return "Something went wrong in User Sign Up";
+	public ResponseEntity<String> userSignUp(UserCredentialsWrapper request) {
+		try {
+			if (validateUser(request) && request.getUserRole().equalsIgnoreCase("user")) {
+				UserCredentials uc = new UserCredentials();
+				uc.setUserName(request.getUserName());
+				uc.setUserPassword(request.getUserPassword());
+				uc.setUserRole(request.getUserRole());
+				uc.setContact(request.getContact());
+				uc.setAddress(request.getAddress());
+				userDao.save(uc);
+				return new ResponseEntity<>("{\"message\":\"" + "Sign Up Successfull" + "\"}", HttpStatus.CREATED);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("{\"message\":\"" + "Something Went Wrong" + "\"}", HttpStatus.OK);
 		}
+		return null;
 	}
 
 }
