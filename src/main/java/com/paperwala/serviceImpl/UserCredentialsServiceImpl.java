@@ -16,7 +16,9 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.base.Strings;
 import com.paperwala.POJO.UserCredentials;
+import com.paperwala.POJO.Vendor;
 import com.paperwala.dao.UserCredentialsDao;
+import com.paperwala.dao.VendorDao;
 import com.paperwala.service.UserCredentialsService;
 import com.paperwala.wrapper.UserCredentialsWrapper;
 
@@ -27,6 +29,9 @@ public class UserCredentialsServiceImpl implements UserCredentialsService {
 
 	@Autowired
 	private UserCredentialsDao userDao;
+
+	@Autowired
+	private VendorDao vendorDao;
 
 	@Override
 	public ResponseEntity<String> createUser(UserCredentialsWrapper request) {
@@ -146,17 +151,32 @@ public class UserCredentialsServiceImpl implements UserCredentialsService {
 			logger.info("Inside login {}", userWrapper);
 			String username = userWrapper.getUserName();
 			String password = userWrapper.getUserPassword();
+			Map<String, String> map = new HashMap<>();
 			if (username != "" && password != "") {
-				Map<String, String> map = new HashMap<>();
-				UserCredentials user = userDao.getUser(username, password);
-				logger.info("----------------------------srv----------------------------{}}", user);
-				if (user != null) {
-					if (!Strings.isNullOrEmpty(user.getUserName()) && !Strings.isNullOrEmpty(user.getUserPassword())
-							&& !Strings.isNullOrEmpty(user.getUserRole())) {
-						map.put("id", Integer.toString(user.getId()));
-						map.put("userName", user.getUserName());
-						map.put("role", user.getUserRole());
-						return map;
+				if (!userWrapper.getUserRole().equalsIgnoreCase("Vendor")) {
+					UserCredentials user = userDao.getUser(username, password);
+					logger.info("Inside validation{}}", user);
+					logger.info("----------------------------srv----------------------------{}}", user);
+					if (user != null) {
+						if (!Strings.isNullOrEmpty(user.getUserName()) && !Strings.isNullOrEmpty(user.getUserPassword())
+								&& !Strings.isNullOrEmpty(user.getUserRole())) {
+							map.put("id", Integer.toString(user.getId()));
+							map.put("userName", user.getUserName());
+							map.put("role", user.getUserRole());
+							return map;
+						}
+					}
+				} else {
+					Vendor vendor = vendorDao.getVendor(username, password);
+					logger.info("Inside vendor validation{}}", vendor);
+					if (vendor != null) {
+						if (!Strings.isNullOrEmpty(vendor.getUserName())
+								&& !Strings.isNullOrEmpty(vendor.getPassword())) {
+							map.put("id", Integer.toString(vendor.getId()));
+							map.put("userName", vendor.getUserName());
+							map.put("role", "Vendor");
+							return map;
+						}
 					}
 				}
 			}

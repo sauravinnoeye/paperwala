@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +26,7 @@ public class NewspaperRestImpl {
 	private NewspaperService service;
 
 	@PostMapping("/addNewspaper")
-	public ResponseEntity<String> addNewsPaper(@RequestBody(required = true) NewspaperWrapper wrapper) {
+	public ResponseEntity<String> addNewspaper(@RequestBody(required = true) NewspaperWrapper wrapper) {
 		try {
 			return service.addNewsPaper(wrapper);
 		} catch (Exception e) {
@@ -34,7 +35,7 @@ public class NewspaperRestImpl {
 		return null;
 	}
 
-	@PostMapping("/getNewspaperByVendor/{id}")
+	@GetMapping("/getNewspaperByVendor/{id}")
 	public List<Newspaper> getNewspaperByVendor(@PathVariable(required = true, name = "id") Integer id) {
 		try {
 			return service.getNewspaperByVendor(id);

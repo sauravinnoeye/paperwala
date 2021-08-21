@@ -14,7 +14,7 @@ import lombok.Data;
 
 
 
-//@NamedQuery(name = "UserCredentials.getUser", query = "select u.userName,u.userPassword,u.userRole from UserCredentials u where u.userName=:username and u.userPassword=:password")
+@NamedQuery(name = "Vendor.getVendor", query = "select v from Vendor v where v.userName=:username and v.password=:password")
 
 @Data
 @Entity
