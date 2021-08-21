@@ -9,11 +9,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.paperwala.dao.NewspaperDao;
 import com.paperwala.dao.UserCredentialsDao;
 import com.paperwala.dao.VendorDao;
+import com.paperwala.restImpl.NewspaperRestImpl;
 import com.paperwala.restImpl.VendorRestImpl;
 import com.paperwala.service.UserCredentialsService;
 import com.paperwala.service.VendorService;
-import com.paperwala.wrapper.UserCredentialsWrapper;
-import com.paperwala.wrapper.VendorWrapper;
 
 @SpringBootTest
 class ApplicationTests {
@@ -32,14 +31,14 @@ class ApplicationTests {
 	@Autowired
 	private VendorService vendors;
 
-//	@Autowired
-//	private NewspaperService nservice;
+	@Autowired
+	private NewspaperRestImpl nservice;
 
 	@Autowired
 	VendorDao vDao;
 
 	@Autowired
-	private NewspaperDao nDao;
+	NewspaperDao nDao;
 
 	@Test
 	void contextLoads() {
@@ -60,13 +59,13 @@ class ApplicationTests {
 //		vendor.setUserName("roll");
 //		vendor.setPassword("roll");
 		// logger.info("-------------------------------------srv-------------------------------{}",vendorService.addVendor(vendor));
-
+		
 //		NewspaperWrapper news = new NewspaperWrapper();
-//		news.setNewspaperName("Hindustan");
+//		news.setNewspaperName("Hindustan Times");
 //		news.setNewspaperRate("5.75");
 //		news.setVendor(1);
-//		
-//		logger.info("-------------------------------------srv-------------------------------{}",nservice.addNewsPaper(news));
+		
+		//logger.info("-------------------------------------srv-------------------------------{}",nservice.addNewsPaper(news));
 
 		// logger.info("-------------------------------------srv-------------------------------{}",nDao.getNewspaper());
 		// logger.info("-------------------------------------srv-------------------------------{}",vendorService.getAllVendor());
@@ -77,10 +76,13 @@ class ApplicationTests {
 //		logger.info("-------------------------------------srv-------------------------------{}",
 //				vendorService.deleteVendor(3));
 
-		UserCredentialsWrapper user = new UserCredentialsWrapper();
-		user.setUserName("saurav");
-		user.setUserPassword("saurav");
-		logger.info("--------------------------------srv------------------------{}", service.login(user));
+//		UserCredentialsWrapper user = new UserCredentialsWrapper();
+//		user.setUserName("saurav");
+//		user.setUserPassword("saurav");
+//		logger.info("--------------------------------srv------------------------{}", service.login(user));
+		
+		
+		logger.info("---------------srv-----------------------{}",nDao.getNewspaperByVendor(1));
 	}
 
 }

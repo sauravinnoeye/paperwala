@@ -1,5 +1,8 @@
 package com.paperwala.serviceImpl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +49,40 @@ public class NewspaperServiceImpl implements NewspaperService {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+//	@Override
+//	public List<Newspaper> getAllNewspaper() {
+//		try {
+//			return newsDao.findAll();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return null;
+//	}
+
+	@Override
+	public ResponseEntity<String> deleteNewspaper(Integer id) {
+		try {
+			newsDao.deleteById(id);
+			return new ResponseEntity<>("{\"message\":\"" + "Newspaper Deleated" + "\"}", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("{\"message\":\"" + "Something Went Wrong." + "\"}", HttpStatus.OK);
+		}
+	}
+
+	@Override
+	public List<Newspaper> getNewspaperByVendor(Integer id) {
+		logger.info("Inside getNewspaperByVendor{}", id);
+		try {
+			if (id != null) {
+				return newsDao.getNewspaperByVendor(id);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ArrayList<>();
 	}
 
 }
