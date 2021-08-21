@@ -3,7 +3,9 @@ package com.paperwala.serviceImpl;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -90,24 +92,50 @@ public class UserCredentialsServiceImpl implements UserCredentialsService {
 		}
 	}
 
+//	@Override
+//	public Boolean login(String username, String password) {
+//		if (username != "" && password != "") {
+//			List<String> list = userDao.getUser(username, password);
+//			logger.info("----------------------------srv----------------------------{}}", list);
+//			if (list.size() != 0) {
+//				String test = list.get(0);
+//				String[] abc = test.split(",");
+//				if (abc.length != 0 && (abc[0].equalsIgnoreCase(username) && abc[1].equals(password))) {
+//					return true;
+//				} else {
+//					return false;
+//				}
+//			} else {
+//				return false;
+//			}
+//		}
+//		return false;
+//	}
+
 	@Override
-	public Boolean login(String username, String password) {
-		if (username != "" && password != "") {
-			List<String> list = userDao.getUser(username, password);
-			logger.info("----------------------------srv----------------------------{}}", list);
-			if (list.size() != 0) {
-				String test = list.get(0);
-				String[] abc = test.split(",");
-				if (abc.length != 0 && (abc[0].equalsIgnoreCase(username) && abc[1].equals(password))) {
-					return true;
-				} else {
-					return false;
+	public Map<String, String> login(UserCredentialsWrapper userWrapper) {
+		try {
+			String username = userWrapper.getUserName();
+			String password = userWrapper.getUserPassword();
+			if (username != "" && password != "") {
+				Map<String, String> map = new HashMap<>();
+				List<String> list = userDao.getUser(username, password);
+				logger.info("----------------------------srv----------------------------{}}", list);
+				if (list.size() != 0) {
+					String test = list.get(0);
+					String[] abc = test.split(",");
+					if (abc.length != 0 && (abc[1].equalsIgnoreCase(username) && abc[2].equals(password))) {
+						map.put("id", list.get(0));
+						map.put("userName", list.get(1));
+						map.put("role", list.get(3));
+						return map;
+					}
 				}
-			} else {
-				return false;
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return false;
+		return new HashMap<>();
 	}
 
 	private ResponseEntity<String> adminSignUp(UserCredentialsWrapper request) {

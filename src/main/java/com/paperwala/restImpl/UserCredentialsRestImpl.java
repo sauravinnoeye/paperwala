@@ -1,5 +1,8 @@
 package com.paperwala.restImpl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,7 +16,7 @@ import com.paperwala.wrapper.UserCredentialsWrapper;
 
 @RestController
 @RequestMapping(path = "/users")
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 public class UserCredentialsRestImpl {
 
 	@Autowired
@@ -29,7 +32,7 @@ public class UserCredentialsRestImpl {
 		}
 		return null;
 	}
-	
+
 //	@PostMapping("/userSignUp")
 //	public ResponseEntity<String> userSignUp(@RequestBody(required = true) UserCredentialsWrapper request) {
 //		// uservice.saveProduct(request);
@@ -40,5 +43,15 @@ public class UserCredentialsRestImpl {
 //		}
 //		return null;
 //	}
+
+	@PostMapping("/login")
+	public Map<String, String> login(@RequestBody(required = true) UserCredentialsWrapper userWrapper) {
+		try {
+			return uservice.login(userWrapper);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new HashMap<>();
+	}
 
 }

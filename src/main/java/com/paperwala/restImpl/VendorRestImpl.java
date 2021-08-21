@@ -52,7 +52,7 @@ public class VendorRestImpl {
 
 
 	@PostMapping("/updateVendor/{id}")
-	public ResponseEntity<String> updateVendor(@PathVariable(required = false, name = "id") Integer id,
+	public ResponseEntity<String> updateVendor(@PathVariable(required = true, name = "id") Integer id,
 			@RequestBody(required = true) VendorWrapper wrap) {
 		try {
 			return vservice.updateVendor(id, wrap);
@@ -62,8 +62,8 @@ public class VendorRestImpl {
 		return null;
 	}
 
-	@DeleteMapping("/deleteVendor")
-	public ResponseEntity<String> deleteVendor(@RequestParam(required = true, name = "id") Integer id) {
+	@DeleteMapping("/deleteVendor/{id}")
+	public ResponseEntity<String> deleteVendor(@PathVariable(required = true, name = "id") Integer id) {
 		try {
 			return vservice.deleteVendor(id);
 		} catch (Exception e) {
