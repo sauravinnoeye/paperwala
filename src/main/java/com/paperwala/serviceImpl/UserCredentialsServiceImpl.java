@@ -29,37 +29,37 @@ public class UserCredentialsServiceImpl implements UserCredentialsService {
 	@Override
 	public ResponseEntity<String> createUser(UserCredentialsWrapper request) {
 		try {
-			if (!Strings.isNullOrEmpty(request.getUserName()) && !Strings.isNullOrEmpty(request.getUserPassword())
-					&& !Strings.isNullOrEmpty(request.getUserRole())) {
+			if (validateUser(request)) {
 				if (validateUsername(request.getUserName())) {
-					UserCredentials uc = new UserCredentials();
-					uc.setUserName(request.getUserName());
-					// uc.setUserPassword(getMd5(request.getUserPassword()));
-					uc.setUserPassword(request.getUserPassword());
-					uc.setUserRole(request.getUserRole());
-					userDao.save(uc);
-					// return "Sign Up Successfull";
-					return new ResponseEntity<>("{\"message\":\"" + "Sign Up Successfull" + "\"}", HttpStatus.CREATED);
+					if (request.getUserRole().equalsIgnoreCase("Admin")) {
+						return adminSignUp(request);
+					} else if (request.getUserRole().equalsIgnoreCase("User")) {
+						return userSignUp(request);
+					}
 				} else {
 					return new ResponseEntity<>("{\"message\":\"" + "Username already Exists" + "\"}", HttpStatus.OK);
 				}
 			} else {
-				// return "Not sufficient data to create account";
 				return new ResponseEntity<>("{\"message\":\"" + "Not sufficient data to create account" + "\"}",
 						HttpStatus.BAD_REQUEST);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
 		}
+		return null;
 	}
 
-	private boolean validateUser(UserCredentialsWrapper user) {
-		logger.info("-----------------srv-------------{}", user.getUserName().toString());
-		// String name = user.getUserName().toString();
-		if (!Strings.isNullOrEmpty(user.getUserName()) && !Strings.isNullOrEmpty(user.getUserPassword())
-				&& !user.getUserRole().isEmpty()) {
-			return true;
+	private boolean validateUser(UserCredentialsWrapper request) {
+		logger.info("-----------------srv-------------{}", request.getUserName().toString());
+		if (!Strings.isNullOrEmpty(request.getUserName()) && !Strings.isNullOrEmpty(request.getUserPassword())
+				&& !Strings.isNullOrEmpty(request.getUserRole())) {
+			if (request.getUserRole().equalsIgnoreCase("Admin")) {
+				return true;
+			} else if (!Strings.isNullOrEmpty(request.getAddress()) && !Strings.isNullOrEmpty(request.getContact())) {
+				return true;
+			} else {
+				return false;
+			}
 		} else {
 			return false;
 		}
@@ -109,8 +109,22 @@ public class UserCredentialsServiceImpl implements UserCredentialsService {
 		return false;
 	}
 
-	@Override
-	public ResponseEntity<String> userSignUp(UserCredentialsWrapper request) {
+	private ResponseEntity<String> adminSignUp(UserCredentialsWrapper request) {
+		try {
+			UserCredentials uc = new UserCredentials();
+			uc.setUserName(request.getUserName());
+			// uc.setUserPassword(getMd5(request.getUserPassword()));
+			uc.setUserPassword(request.getUserPassword());
+			uc.setUserRole(request.getUserRole());
+			userDao.save(uc);
+			return new ResponseEntity<>("{\"message\":\"" + "Sign Up Successfull" + "\"}", HttpStatus.CREATED);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("{\"message\":\"" + "Something went wrong" + "\"}", HttpStatus.OK);
+		}
+	}
+
+	private ResponseEntity<String> userSignUp(UserCredentialsWrapper request) {
 		try {
 			if (validateUser(request) && request.getUserRole().equalsIgnoreCase("user")) {
 				UserCredentials uc = new UserCredentials();

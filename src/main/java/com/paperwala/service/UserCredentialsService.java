@@ -9,5 +9,5 @@ public interface UserCredentialsService {
 	
 	Boolean login(String username,String password);
 	
-	ResponseEntity<String> userSignUp(UserCredentialsWrapper request);
+	//ResponseEntity<String> userSignUp(UserCredentialsWrapper request);
 }
