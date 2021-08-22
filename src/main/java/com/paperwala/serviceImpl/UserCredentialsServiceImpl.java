@@ -180,6 +180,9 @@ public class UserCredentialsServiceImpl implements UserCredentialsService {
 					}
 				}
 			}
+			map.put("message", "Invalid Username or Password");
+			map.put("httpResponse", HttpStatus.UNAUTHORIZED.toString());
+			return map;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
