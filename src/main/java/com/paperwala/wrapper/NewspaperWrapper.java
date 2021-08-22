@@ -15,10 +15,13 @@ public class NewspaperWrapper {
 
 	private String newspaperRate;
 
-	public NewspaperWrapper(String newspaperName, String newspaperRate, Integer vendor) {
+	private Integer newspaperId;
+
+	public NewspaperWrapper(String newspaperName, String newspaperRate, Integer vendor, Integer newspaperId) {
 		this.newspaperName = newspaperName;
 		this.newspaperRate = newspaperRate;
 		this.vendor = vendor;
+		this.newspaperId = newspaperId;
 	}
 
 }
