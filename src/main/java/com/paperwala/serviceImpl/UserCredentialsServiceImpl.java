@@ -151,10 +151,11 @@ public class UserCredentialsServiceImpl implements UserCredentialsService {
 			logger.info("Inside login {}", userWrapper);
 			String username = userWrapper.getUserName();
 			String password = userWrapper.getUserPassword();
+			String role = userWrapper.getUserRole();
 			Map<String, String> map = new HashMap<>();
 			if (username != "" && password != "") {
 				if (!userWrapper.getUserRole().equalsIgnoreCase("Vendor")) {
-					UserCredentials user = userDao.getUser(username, password);
+					UserCredentials user = userDao.getUser(username, password, role);
 					logger.info("Inside validation{}}", user);
 					logger.info("----------------------------srv----------------------------{}}", user);
 					if (user != null) {

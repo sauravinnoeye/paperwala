@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import lombok.Data;
 
 //@NamedQuery(name = "Vendor.getNewspaper", query = "select new com.paperwala.wrapper.NewspaperWrapper(v.newspaperName) from newspaper v")
@@ -24,6 +26,7 @@ import lombok.Data;
 
 @Data
 @Entity
+@DynamicUpdate
 @Table(name = "newspaper")
 public class Newspaper implements Serializable {
 	private static final long serialVersionUID = 1L;

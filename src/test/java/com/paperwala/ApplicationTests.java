@@ -13,7 +13,7 @@ import com.paperwala.restImpl.NewspaperRestImpl;
 import com.paperwala.restImpl.UserCredentialsRestImpl;
 import com.paperwala.restImpl.VendorRestImpl;
 import com.paperwala.service.VendorService;
-import com.paperwala.wrapper.UserCredentialsWrapper;
+import com.paperwala.wrapper.NewspaperWrapper;
 
 @SpringBootTest
 class ApplicationTests {
@@ -87,9 +87,14 @@ class ApplicationTests {
 		// vDao.getVendor("shivani","shivani"));
 
 		// logger.info("---------------srv-----------------------{}",nDao.getNewspaperByVendor(1));
-		
-		logger.info("-------------------srv------------------{}",nservice.getNewspaperByVendor(1));
-		
+
+		// logger.info("-------------------srv------------------{}",nservice.getNewspaperByVendor(1));
+
+		NewspaperWrapper news = new NewspaperWrapper();
+		news.setNewspaperName("Hindustannnnnn");
+		news.setNewspaperRate("6.75");
+		logger.info("--------------------------------------srv-----------------------{}",
+				nservice.updateNewspaper(2, news));
 	}
 
 }

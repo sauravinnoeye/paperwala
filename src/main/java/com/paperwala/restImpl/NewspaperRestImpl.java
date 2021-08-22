@@ -43,11 +43,22 @@ public class NewspaperRestImpl {
 		}
 		return null;
 	}
-	
+
 	@DeleteMapping("/deleteNewspaper/{id}")
 	public ResponseEntity<String> deleteNewspaper(@PathVariable(required = true, name = "id") Integer id) {
 		try {
 			return service.deleteNewspaper(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@PostMapping("/updateNewspaper/{id}")
+	public ResponseEntity<String> updateNewspaper(@PathVariable(required = true, name = "id") Integer id,
+			@RequestBody(required = true) NewspaperWrapper wrap) {
+		try {
+			return service.updateNewspaper(id, wrap);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

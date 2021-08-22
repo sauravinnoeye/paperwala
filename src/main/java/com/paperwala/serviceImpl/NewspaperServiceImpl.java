@@ -85,4 +85,25 @@ public class NewspaperServiceImpl implements NewspaperService {
 		return new ArrayList<>();
 	}
 
+	@Override
+	public ResponseEntity<String> updateNewspaper(Integer id, NewspaperWrapper newsPaper) {
+		logger.info("Inside updateNewspaper {}", newsPaper);
+		try {
+			if (!Strings.isNullOrEmpty(newsPaper.getNewspaperName())
+					&& !Strings.isNullOrEmpty(newsPaper.getNewspaperRate())) {
+				Newspaper np = newsDao.getById(id);
+				np.setNewspaperName(newsPaper.getNewspaperName());
+				np.setNewspaperRate(newsPaper.getNewspaperRate());
+				newsDao.save(np);
+				return new ResponseEntity<>("{\"message\":\"" + "Newspaper Updated Successfully" + "\"}",
+						HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>("{\"message\":\"" + "Something Went Wrong." + "\"}", HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }

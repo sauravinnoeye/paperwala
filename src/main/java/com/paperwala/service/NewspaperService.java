@@ -9,11 +9,13 @@ import com.paperwala.wrapper.NewspaperWrapper;
 public interface NewspaperService {
 
 	ResponseEntity<String> addNewsPaper(NewspaperWrapper request);
-	
-	//List<Newspaper> getAllNewspaper();
-	
+
+	// List<Newspaper> getAllNewspaper();
+
 	ResponseEntity<String> deleteNewspaper(Integer id);
-	
+
 	List<NewspaperWrapper> getNewspaperByVendor(Integer id);
+
+	ResponseEntity<String> updateNewspaper(Integer id, NewspaperWrapper newsPaper);
 
 }

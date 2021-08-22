@@ -17,6 +17,10 @@ public class NewspaperWrapper {
 
 	private Integer newspaperId;
 
+	public NewspaperWrapper() {
+		super();
+	}
+
 	public NewspaperWrapper(String newspaperName, String newspaperRate, Integer vendor, Integer newspaperId) {
 		this.newspaperName = newspaperName;
 		this.newspaperRate = newspaperRate;

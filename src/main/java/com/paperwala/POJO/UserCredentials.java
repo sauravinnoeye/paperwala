@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
-@NamedQuery(name = "UserCredentials.getUser", query = "select u from UserCredentials u where u.userName=:username and u.userPassword=:password")
+@NamedQuery(name = "UserCredentials.getUser", query = "select u from UserCredentials u where u.userName=:username and u.userPassword=:password and userRole=:role")
 
 @NamedQuery(name = "UserCredentials.validUser", query = "select u.userName,u.userPassword,u.userRole from UserCredentials u where u.userName=:username")
 
