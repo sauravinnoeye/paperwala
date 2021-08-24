@@ -13,7 +13,7 @@ import com.paperwala.restImpl.NewspaperRestImpl;
 import com.paperwala.restImpl.UserCredentialsRestImpl;
 import com.paperwala.restImpl.VendorRestImpl;
 import com.paperwala.service.VendorService;
-import com.paperwala.wrapper.NewspaperWrapper;
+import com.paperwala.wrapper.UserCredentialsWrapper;
 
 @SpringBootTest
 class ApplicationTests {
@@ -47,8 +47,11 @@ class ApplicationTests {
 		// System.out.println("-----------------srv----------------"+user.getUser("saurav",
 		// "pass"));
 
-		// logger.info("-------------------------srv----------------{}",service.login("saurav",
-		// "pass"));
+		UserCredentialsWrapper user = new UserCredentialsWrapper();
+		user.setUserName("shivani");
+		user.setUserPassword("shivani");
+
+		logger.info("-------------------------srv----------------{}", service.login(user));
 
 //		VendorWrapper vendor = new VendorWrapper();
 //		vendor.setVendorName("Gaurav");
@@ -90,11 +93,11 @@ class ApplicationTests {
 
 		// logger.info("-------------------srv------------------{}",nservice.getNewspaperByVendor(1));
 
-		NewspaperWrapper news = new NewspaperWrapper();
-		news.setNewspaperName("Hindustannnnnn");
-		news.setNewspaperRate("6.75");
-		logger.info("--------------------------------------srv-----------------------{}",
-				nservice.updateNewspaper(2, news));
+//		NewspaperWrapper news = new NewspaperWrapper();
+//		news.setNewspaperName("Hindustan");
+//		news.setNewspaperRate("300");
+//		logger.info("--------------------------------------srv-----------------------{}",
+//				nservice.updateNewspaper(2, news));
 	}
 
 }

@@ -145,17 +145,74 @@ public class UserCredentialsServiceImpl implements UserCredentialsService {
 //		return new HashMap<>();
 //	}
 
+	// -------------------------------OLD login with
+	// role----------------------------------------
+//	@Override
+//	public Map<String, String> login(UserCredentialsWrapper userWrapper) {
+//		try {
+//			logger.info("Inside login {}", userWrapper);
+//			String username = userWrapper.getUserName();
+//			String password = userWrapper.getUserPassword();
+//			String role = userWrapper.getUserRole();
+//			Map<String, String> map = new HashMap<>();
+//			if (username != "" && password != "") {
+//				if (!userWrapper.getUserRole().equalsIgnoreCase("Vendor")) {
+//					UserCredentials user = userDao.getUser(username, password, role);
+//					logger.info("Inside validation{}}", user);
+//					logger.info("----------------------------srv----------------------------{}}", user);
+//					if (user != null) {
+//						if (!Strings.isNullOrEmpty(user.getUserName()) && !Strings.isNullOrEmpty(user.getUserPassword())
+//								&& !Strings.isNullOrEmpty(user.getUserRole())) {
+//							map.put("id", Integer.toString(user.getId()));
+//							map.put("userName", user.getUserName());
+//							map.put("role", user.getUserRole());
+//							return map;
+//						}
+//					}
+//				} else {
+//					Vendor vendor = vendorDao.getVendor(username, password);
+//					logger.info("Inside vendor validation{}}", vendor);
+//					if (vendor != null) {
+//						if (!Strings.isNullOrEmpty(vendor.getUserName())
+//								&& !Strings.isNullOrEmpty(vendor.getPassword())) {
+//							map.put("id", Integer.toString(vendor.getId()));
+//							map.put("userName", vendor.getUserName());
+//							map.put("role", "Vendor");
+//							return map;
+//						}
+//					}
+//				}
+//			}
+//			map.put("message", "Invalid Username or Password");
+//			map.put("httpResponse", HttpStatus.UNAUTHORIZED.toString());
+//			return map;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return new HashMap<>();
+//	}
+
 	@Override
 	public Map<String, String> login(UserCredentialsWrapper userWrapper) {
 		try {
 			logger.info("Inside login {}", userWrapper);
 			String username = userWrapper.getUserName();
 			String password = userWrapper.getUserPassword();
-			String role = userWrapper.getUserRole();
+			String role = "";
+
+			UserCredentials user = userDao.getUser(username, password);
+			Vendor vendor = vendorDao.getVendor(username, password);
+			if (user != null) {
+				role = user.getUserRole();
+			} else if (vendor != null) {
+				role = "Vendor";
+			}
+
+			// String role = userWrapper.getUserRole();
 			Map<String, String> map = new HashMap<>();
-			if (username != "" && password != "") {
-				if (!userWrapper.getUserRole().equalsIgnoreCase("Vendor")) {
-					UserCredentials user = userDao.getUser(username, password, role);
+			if (username != "" && password != "" && role != "") {
+				if (!role.equalsIgnoreCase("Vendor")) {
+					// UserCredentials user = userDao.getUser(username, password, role);
 					logger.info("Inside validation{}}", user);
 					logger.info("----------------------------srv----------------------------{}}", user);
 					if (user != null) {
@@ -168,7 +225,7 @@ public class UserCredentialsServiceImpl implements UserCredentialsService {
 						}
 					}
 				} else {
-					Vendor vendor = vendorDao.getVendor(username, password);
+					// Vendor vendor = vendorDao.getVendor(username, password);
 					logger.info("Inside vendor validation{}}", vendor);
 					if (vendor != null) {
 						if (!Strings.isNullOrEmpty(vendor.getUserName())
