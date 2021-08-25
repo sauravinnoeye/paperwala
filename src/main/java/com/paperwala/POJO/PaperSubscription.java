@@ -28,6 +28,10 @@ public class PaperSubscription implements Serializable {
 	private Integer id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "usercredentials_pk", nullable = false)
+	private UserCredentials user;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "vendor_fk", nullable = false)
 	private Vendor vendor;
 	
