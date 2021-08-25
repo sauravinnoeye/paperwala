@@ -1,5 +1,7 @@
 package com.paperwala;
 
+import java.text.ParseException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
@@ -10,10 +12,11 @@ import com.paperwala.dao.NewspaperDao;
 import com.paperwala.dao.UserCredentialsDao;
 import com.paperwala.dao.VendorDao;
 import com.paperwala.restImpl.NewspaperRestImpl;
+import com.paperwala.restImpl.PaperSubscriptionRestImpl;
 import com.paperwala.restImpl.UserCredentialsRestImpl;
 import com.paperwala.restImpl.VendorRestImpl;
 import com.paperwala.service.VendorService;
-import com.paperwala.wrapper.UserCredentialsWrapper;
+import com.paperwala.wrapper.PaperSubscriptionWrapper;
 
 @SpringBootTest
 class ApplicationTests {
@@ -34,6 +37,9 @@ class ApplicationTests {
 
 	@Autowired
 	private NewspaperRestImpl nservice;
+	
+	@Autowired
+	private PaperSubscriptionRestImpl subsService;
 
 	@Autowired
 	VendorDao vDao;
@@ -42,16 +48,16 @@ class ApplicationTests {
 	NewspaperDao nDao;
 
 	@Test
-	void contextLoads() {
+	void contextLoads() throws ParseException {
 
 		// System.out.println("-----------------srv----------------"+user.getUser("saurav",
 		// "pass"));
 
-		UserCredentialsWrapper user = new UserCredentialsWrapper();
-		user.setUserName("shivani");
-		user.setUserPassword("shivani");
-
-		logger.info("-------------------------srv----------------{}", service.login(user));
+//		UserCredentialsWrapper user = new UserCredentialsWrapper();
+//		user.setUserName("shivani");
+//		user.setUserPassword("shivani");
+//
+//		logger.info("-------------------------srv----------------{}", service.login(user));
 
 //		VendorWrapper vendor = new VendorWrapper();
 //		vendor.setVendorName("Gaurav");
@@ -98,6 +104,44 @@ class ApplicationTests {
 //		news.setNewspaperRate("300");
 //		logger.info("--------------------------------------srv-----------------------{}",
 //				nservice.updateNewspaper(2, news));
+
+//		SimpleDateFormat formatter = new SimpleDateFormat(
+//			      "dd/MM/yyyy");
+//		Date date = formatter.parse(formatter.format(new Date()));
+//	    logger.info("----------------- srv ---------------{}-------",LocalDate.now());
+
+		
+//		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+//		
+//		//LocalDate date = LocalDate.now();
+//		
+//		Date today = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
+//		String subscriptionDate = dateFormat.format(today);
+//		
+//		
+//		Date expire = DateUtils.addMonths(new Date(), 1);
+//		String expireDate = dateFormat.format(expire);
+
+		
+		
+		
+		//Date date1=dateFormat.parse(todayNew);  
+
+		// LocalDate newDatee = (LocalDate)newDate;
+		//logger.info("----------------- srv ---------------{}--------{}------", today,expire);
+		
+		
+		PaperSubscriptionWrapper paper = new PaperSubscriptionWrapper();
+		paper.setUser(1);
+		paper.setVendor(1);
+		paper.setNewspaper(2);
+		paper.setActive("Yes");
+		paper.setAmount("6");
+		paper.setDuration("Quaterly");
+		
+		logger.info("--------------------srv-----------------------{}",subsService.subscribe(paper));
+		
+
 	}
 
 }
