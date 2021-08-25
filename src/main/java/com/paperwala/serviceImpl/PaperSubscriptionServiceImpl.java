@@ -1,9 +1,11 @@
 package com.paperwala.serviceImpl;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.time.DateUtils;
@@ -45,25 +47,33 @@ public class PaperSubscriptionServiceImpl implements PaperSubscriptionService {
 		logger.info("Inside subscribe service Impl {}", subscribeWrapper);
 		try {
 			if (validateWrapper(subscribeWrapper)) {
-				PaperSubscription paper = new PaperSubscription();
-				paper.setUser(userDao.findById(subscribeWrapper.getUser()).get());
-				paper.setVendor(vendorDao.findById(subscribeWrapper.getVendor()).get());
-				paper.setNewspaper(newspaperDao.findById(subscribeWrapper.getNewspaper()).get());
+				List<String> list = subsDao.validSubscription(subscribeWrapper.getUser(), subscribeWrapper.getVendor(),
+						subscribeWrapper.getNewspaper());
+				logger.info("------{}-----{}-----{}", subscribeWrapper.getUser(), subscribeWrapper.getVendor(),
+						subscribeWrapper.getNewspaper());
+				if (list.isEmpty() && list.size() == 0) {
+					PaperSubscription paper = new PaperSubscription();
+					paper.setUser(userDao.findById(subscribeWrapper.getUser()).get());
+					paper.setVendor(vendorDao.findById(subscribeWrapper.getVendor()).get());
+					paper.setNewspaper(newspaperDao.findById(subscribeWrapper.getNewspaper()).get());
 
-				Integer totalChargeByDuration = getAmountByDuration(subscribeWrapper.getDuration(),
-						subscribeWrapper.getAmount(), getMonthCount(subscribeWrapper.getDuration()));
+					Integer totalChargeByDuration = getAmountByDuration(subscribeWrapper.getDuration(),
+							subscribeWrapper.getAmount(), getMonthCount(subscribeWrapper.getDuration()));
 
-				paper.setDuration(subscribeWrapper.getDuration());
-				paper.setActive(subscribeWrapper.getActive());
-				paper.setTotalAmount(totalChargeByDuration.toString());
+					paper.setDuration(subscribeWrapper.getDuration());
+					paper.setActive(subscribeWrapper.getActive());
+					paper.setTotalAmount(totalChargeByDuration.toString());
 
-				Map<String, Date> map = getSubAndExpireDate(getMonthCount(subscribeWrapper.getDuration()));
-				paper.setSubscribeDate(map.get("sDate"));
-				paper.setExpireDate(map.get("eDate"));
+					Map<String, Date> map = getSubAndExpireDate(getMonthCount(subscribeWrapper.getDuration()));
+					paper.setSubscribeDate(map.get("sDate"));
+					paper.setExpireDate(map.get("eDate"));
 
-				subsDao.save(paper);
+					subsDao.save(paper);
 
-				return new ResponseEntity<>("{\"message\":\"" + "Newspaper Subscribed" + "\"}", HttpStatus.CREATED);
+					return new ResponseEntity<>("{\"message\":\"" + "Newspaper Subscribed" + "\"}", HttpStatus.CREATED);
+				} else {
+					return new ResponseEntity<>("{\"message\":\"" + "Already Subscribed" + "\"}", HttpStatus.CREATED);
+				}
 			} else {
 				return new ResponseEntity<>("{\"message\":\"" + "Not sufficient data." + "\"}", HttpStatus.CREATED);
 			}

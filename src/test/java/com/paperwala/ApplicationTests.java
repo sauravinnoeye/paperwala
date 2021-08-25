@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.paperwala.dao.NewspaperDao;
+import com.paperwala.dao.PaperSubscriptionDao;
 import com.paperwala.dao.UserCredentialsDao;
 import com.paperwala.dao.VendorDao;
 import com.paperwala.restImpl.NewspaperRestImpl;
@@ -46,7 +47,10 @@ class ApplicationTests {
 
 	@Autowired
 	NewspaperDao nDao;
-
+	
+	@Autowired
+	PaperSubscriptionDao paperDao;
+	
 	@Test
 	void contextLoads() throws ParseException {
 
@@ -140,6 +144,11 @@ class ApplicationTests {
 		paper.setDuration("Quaterly");
 		
 		logger.info("--------------------srv-----------------------{}",subsService.subscribe(paper));
+		
+//		logger.info("--------------------srv-----------------------{}",paperDao.getDetailForVendorByVendorId(1));
+//		
+//		
+//		logger.info("--------------------srv----2-------------------{}",paperDao.validSubscription(3, 1, 2));
 		
 
 	}
