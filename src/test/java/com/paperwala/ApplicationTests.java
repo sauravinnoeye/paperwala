@@ -17,7 +17,6 @@ import com.paperwala.restImpl.PaperSubscriptionRestImpl;
 import com.paperwala.restImpl.UserCredentialsRestImpl;
 import com.paperwala.restImpl.VendorRestImpl;
 import com.paperwala.service.VendorService;
-import com.paperwala.wrapper.PaperSubscriptionWrapper;
 
 @SpringBootTest
 class ApplicationTests {
@@ -135,20 +134,23 @@ class ApplicationTests {
 		//logger.info("----------------- srv ---------------{}--------{}------", today,expire);
 		
 		
-		PaperSubscriptionWrapper paper = new PaperSubscriptionWrapper();
-		paper.setUser(1);
-		paper.setVendor(1);
-		paper.setNewspaper(2);
-		paper.setActive("Yes");
-		paper.setAmount("6");
-		paper.setDuration("Quaterly");
+//		PaperSubscriptionWrapper paper = new PaperSubscriptionWrapper();
+//		paper.setUser(1);
+//		paper.setVendor(1);
+//		paper.setNewspaper(2);
+//		paper.setActive("Yes");
+//		paper.setAmount("6");
+//		paper.setDuration("Quaterly");
+//		
+//		logger.info("--------------------srv-----------------------{}",subsService.subscribe(paper));
 		
-		logger.info("--------------------srv-----------------------{}",subsService.subscribe(paper));
-		
-//		logger.info("--------------------srv-----------------------{}",paperDao.getDetailForVendorByVendorId(1));
+		//logger.info("--------------------srv-----------------------{}",paperDao.getDetailForVendorByVendorId(1));
 //		
 //		
 //		logger.info("--------------------srv----2-------------------{}",paperDao.validSubscription(3, 1, 2));
+		logger.info("--------------------srv-----------------------{}",paperDao.getDetailForUserByUserId(3));
+		
+		logger.info("--------------------srv-----------------------{}",paperDao.getDetailForUserByUserId(2));
 		
 
 	}

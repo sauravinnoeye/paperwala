@@ -16,9 +16,15 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
-@NamedQuery(name = "PaperSubscription.getDetailForVendorByVendorId", query = "select new com.paperwala.wrapper.SubscribtionWrapper(p.user.userName,p.user.contact,p.user.address,p.newspaper.newspaperName,p.newspaper.newspaperRate,p.totalAmount) from PaperSubscription p where p.vendor.id=:id")
+@NamedQuery(name = "PaperSubscription.getDetailForVendorByVendorId", query = "select new com.paperwala.wrapper.SubscribtionWrapper(p.user.userName,p.user.contact,p.user.address,p.newspaper.newspaperName,p.newspaper.newspaperRate,p.totalAmount,p.subscribeDate,p.expireDate,p.duration) from PaperSubscription p where p.vendor.id=:id and p.active='Yes'")
 
 @NamedQuery(name = "PaperSubscription.validSubscription", query = "select p.user.userName from PaperSubscription p where p.user.id=:uId and p.vendor.id=:vId and p.newspaper.id=:nId and p.active='Yes'")
+
+@NamedQuery(name = "PaperSubscription.unsubscribe", query = "update PaperSubscription p set p.active='No' where p.user.id=:uId and p.vendor.id=:vId and p.newspaper.id=:nId and p.active='Yes'")
+
+@NamedQuery(name = "PaperSubscription.statusUpdateScheduler", query = "update PaperSubscription set active='No' WHERE expireDate <= now()")
+
+@NamedQuery(name = "PaperSubscription.getDetailForUserByUserId", query = "select new com.paperwala.wrapper.SubscribtionWrapper(u.vendor.vendorName,u.vendor.type,u.vendor.agency,u.vendor.contact,u.vendor.vendorAddress,u.newspaper.newspaperName,u.newspaper.newspaperRate,u.totalAmount,u.subscribeDate,u.expireDate,u.duration) from PaperSubscription u where u.user.id=:uId and u.active='Yes'")
 
 @Data
 @Entity
