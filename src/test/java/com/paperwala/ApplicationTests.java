@@ -148,9 +148,9 @@ class ApplicationTests {
 //		
 //		
 //		logger.info("--------------------srv----2-------------------{}",paperDao.validSubscription(3, 1, 2));
-		logger.info("--------------------srv-----------------------{}",paperDao.getDetailForUserByUserId(3));
+		logger.info("--------------------srv-----------------------{}",paperDao.getDetailForUserByUserId(3,"Yes"));
 		
-		logger.info("--------------------srv-----------------------{}",paperDao.getDetailForUserByUserId(2));
+		logger.info("--------------------srv-----------------------{}",paperDao.getDetailForUserByUserId(2,"No"));
 		
 
 	}
