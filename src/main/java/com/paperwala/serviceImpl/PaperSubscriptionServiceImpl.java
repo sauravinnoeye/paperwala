@@ -108,7 +108,7 @@ public class PaperSubscriptionServiceImpl implements PaperSubscriptionService {
 			switch (duration) {
 			case "Monthly":
 				return 1;
-			case "Quaterly":
+			case "Quarterly":
 				return 4;
 			case "Half Yearly":
 				return 6;
@@ -128,7 +128,7 @@ public class PaperSubscriptionServiceImpl implements PaperSubscriptionService {
 				switch (duration) {
 				case "Monthly":
 					return getMonthlyCharges(amount);
-				case "Quaterly":
+				case "Quarterly":
 					return (getMonthlyCharges(amount) * monthCount);
 				case "Half Yearly":
 					return (getMonthlyCharges(amount) * monthCount);
@@ -207,7 +207,7 @@ public class PaperSubscriptionServiceImpl implements PaperSubscriptionService {
 	 */
 
 	// @Scheduled(fixedRate = 5000)
-	@Scheduled(cron = "*/10 * * * * *") // in every 10 seconds
+	@Scheduled(cron = "*/60 * * * * *") // in every 10 seconds
 	// @Scheduled(cron = "0 0 8,10 * * *") // 8 and 10 o'clock of every day
 	private void reportCurrentTime() {
 		logger.info("The time is now {}", dateFormat.format(new Date()));
