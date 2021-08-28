@@ -66,4 +66,26 @@ public class PaperSubscriptionRestImpl {
 		return null;
 	}
 	
+	@GetMapping("/getExpiredDetailForVendorByVendorId/{id}")
+	public List<SubscribtionWrapper> getExpiredDetailForVendorByVendorId(
+			@PathVariable(required = true, name = "id") Integer id) {
+		try {
+			return service.getExpiredDetailForVendorByVendorId(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@GetMapping("/getExpiredDetailForUserByUserId/{id}")
+	public List<SubscribtionWrapper> getExpiredDetailForUserByUserId(
+			@PathVariable(required = true, name = "id") Integer id) {
+		try {
+			return service.getExpiredDetailForUserByUserId(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 }

@@ -219,7 +219,7 @@ public class PaperSubscriptionServiceImpl implements PaperSubscriptionService {
 		logger.info("Inside getDetailForVendorByVendorId service Impl {}", id);
 		try {
 			if (id != null) {
-				return subsDao.getDetailForVendorByVendorId(id);
+				return subsDao.getDetailForVendorByVendorId(id, "Yes");
 			} else {
 				throw new IllegalArgumentException();
 			}
@@ -234,7 +234,37 @@ public class PaperSubscriptionServiceImpl implements PaperSubscriptionService {
 		logger.info("Inside getDetailForVendorByVendorId service Impl {}", id);
 		try {
 			if (id != null) {
-				return subsDao.getDetailForUserByUserId(id);
+				return subsDao.getDetailForUserByUserId(id, "Yes");
+			} else {
+				throw new IllegalArgumentException();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<SubscribtionWrapper> getExpiredDetailForVendorByVendorId(Integer id) {
+		logger.info("Inside getExpiredDetailForVendorByVendorId service Impl {}", id);
+		try {
+			if (id != null) {
+				return subsDao.getDetailForVendorByVendorId(id, "No");
+			} else {
+				throw new IllegalArgumentException();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<SubscribtionWrapper> getExpiredDetailForUserByUserId(Integer id) {
+		logger.info("Inside getExpiredDetailForUserByUserId service Impl {}", id);
+		try {
+			if (id != null) {
+				return subsDao.getDetailForUserByUserId(id, "No");
 			} else {
 				throw new IllegalArgumentException();
 			}

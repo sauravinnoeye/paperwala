@@ -16,5 +16,9 @@ public interface PaperSubscriptionService {
 	List<SubscribtionWrapper> getDetailForVendorByVendorId(Integer id);
 
 	List<SubscribtionWrapper> getDetailForUserByUserId(Integer id);
+	
+	List<SubscribtionWrapper> getExpiredDetailForVendorByVendorId(Integer id);
+
+	List<SubscribtionWrapper> getExpiredDetailForUserByUserId(Integer id);
 
 }

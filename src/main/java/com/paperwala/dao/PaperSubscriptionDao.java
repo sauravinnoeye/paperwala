@@ -13,7 +13,7 @@ import com.paperwala.wrapper.SubscribtionWrapper;
 
 public interface PaperSubscriptionDao extends JpaRepository<PaperSubscription, Integer> {
 
-	List<SubscribtionWrapper> getDetailForVendorByVendorId(@Param("id") Integer id);
+	List<SubscribtionWrapper> getDetailForVendorByVendorId(@Param("id") Integer id, @Param("active") String active);
 
 	List<String> validSubscription(@Param("uId") Integer uId, @Param("vId") Integer vId, @Param("nId") Integer nId);
 
@@ -25,5 +25,5 @@ public interface PaperSubscriptionDao extends JpaRepository<PaperSubscription, I
 	@Transactional
 	Integer statusUpdateScheduler();
 
-	List<SubscribtionWrapper> getDetailForUserByUserId(@Param("uId") Integer uId);
+	List<SubscribtionWrapper> getDetailForUserByUserId(@Param("uId") Integer uId, @Param("active") String active);
 }
