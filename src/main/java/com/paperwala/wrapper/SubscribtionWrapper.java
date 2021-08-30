@@ -1,5 +1,6 @@
 package com.paperwala.wrapper;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,9 +24,9 @@ public class SubscribtionWrapper {
 
 	private String totalAmount;
 
-	private Date subscribeDate;
+	private String subscribeDate;
 
-	private Date expireDate;
+	private String expireDate;
 
 	private String duration;
 
@@ -49,8 +50,10 @@ public class SubscribtionWrapper {
 		this.newspaperName = newspaperName;
 		this.newspaperRate = newspaperRate;
 		this.totalAmount = totalAmount;
-		this.subscribeDate = subscribeDate;
-		this.expireDate = expireDate;
+		this.subscribeDate = getDateFromString(subscribeDate);
+		this.expireDate = getDateFromString(expireDate);
+//		this.subscribeDate = subscribeDate.toString();
+//		this.expireDate = expireDate.toString();
 		this.duration = duration;
 	}
 
@@ -65,8 +68,16 @@ public class SubscribtionWrapper {
 		this.newspaperName = newspaperName;
 		this.newspaperRate = newspaperRate;
 		this.totalAmount = totalAmount;
-		this.subscribeDate = subscribeDate;
-		this.expireDate = expireDate;
+		this.subscribeDate = getDateFromString(subscribeDate);
+		this.expireDate = getDateFromString(expireDate);
+//		this.subscribeDate = subscribeDate.toString();
+//		this.expireDate = expireDate.toString();
 		this.duration = duration;
+	}
+
+	private String getDateFromString(Date dateWithTime) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		String dateOnly = dateFormat.format(dateWithTime);
+		return dateOnly;
 	}
 }
