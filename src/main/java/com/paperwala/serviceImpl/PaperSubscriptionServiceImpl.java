@@ -58,7 +58,7 @@ public class PaperSubscriptionServiceImpl implements PaperSubscriptionService {
 					paper.setVendor(vendorDao.findById(subscribeWrapper.getVendor()).get());
 					paper.setNewspaper(newspaperDao.findById(subscribeWrapper.getNewspaper()).get());
 
-					Integer totalChargeByDuration = getAmountByDuration(subscribeWrapper.getDuration(),
+					Float totalChargeByDuration = getAmountByDuration(subscribeWrapper.getDuration(),
 							subscribeWrapper.getAmount(), getMonthCount(subscribeWrapper.getDuration()));
 
 					paper.setDuration(subscribeWrapper.getDuration());
@@ -121,7 +121,7 @@ public class PaperSubscriptionServiceImpl implements PaperSubscriptionService {
 		return null;
 	}
 
-	private Integer getAmountByDuration(String duration, String amount, Integer monthCount) {
+	private Float getAmountByDuration(String duration, String amount, Integer monthCount) {
 		logger.info("Inside getAmountByDuration service Impl {} {} {}", duration, amount, monthCount);
 		try {
 			if (amount != "0" && monthCount != 0) {
@@ -144,10 +144,10 @@ public class PaperSubscriptionServiceImpl implements PaperSubscriptionService {
 		return null;
 	}
 
-	private Integer getMonthlyCharges(String amount) {
+	private Float getMonthlyCharges(String amount) {
 		logger.info("Inside getMonthlyCharges service Impl {}", amount);
 		try {
-			return (Integer) 30 * Integer.parseInt(amount);
+			return 30 * Float.parseFloat(amount);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
