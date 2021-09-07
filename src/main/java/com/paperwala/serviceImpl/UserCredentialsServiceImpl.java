@@ -271,6 +271,9 @@ public class UserCredentialsServiceImpl implements UserCredentialsService {
 				uc.setUserRole(request.getUserRole());
 				uc.setContact(request.getContact());
 				uc.setAddress(request.getAddress());
+				uc.setFirstName(request.getFirstName());
+				uc.setLastName(request.getLastName());
+				uc.setUemail(request.getUemail());
 				userDao.save(uc);
 				return new ResponseEntity<>("{\"message\":\"" + "Sign Up Successfull" + "\"}", HttpStatus.CREATED);
 			}

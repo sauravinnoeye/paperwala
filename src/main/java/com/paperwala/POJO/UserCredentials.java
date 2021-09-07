@@ -49,5 +49,17 @@ public class UserCredentials implements Serializable {
 	@Basic
 	@Column(name = "address")
 	private String address;
+	
+	@Basic
+	@Column(name = "firstname")
+	private String firstName;
+	
+	@Basic
+	@Column(name = "lastname")
+	private String lastName;
+	
+	@Basic
+	@Column(name = "uemail")
+	private String uemail;
 
 }

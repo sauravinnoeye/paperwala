@@ -10,12 +10,18 @@ import lombok.Data;
 public class UserCredentialsWrapper {
 
 	private String userName;
-	
+
 	private String userPassword;
-	
+
 	private String userRole;
-	
+
 	private String contact;
-	
+
 	private String address;
+
+	private String uemail;
+
+	private String firstName;
+
+	private String lastName;
 }
